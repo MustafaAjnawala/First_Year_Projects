@@ -214,6 +214,12 @@ int game_logic()
         {
             // Print the Minesweeper grid
             printGrid(minesweeperGrid, rows, cols);
+            
+            //here placing a switch for ->reveal a cell
+            //                          ->insert a flag on cell
+
+
+
 
             // Get user input
             printf("Enter row and column to reveal (e.g., 0 1) (Min.=0 0 & Max.=%d %d): ", rows - 1, cols - 1);
