@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<iostream>
+using namespace std;
 
 char **create_board(int size)
 {
-    char **board = (char **)malloc(size * sizeof(char)); // Dynamically allocating the rows of the board
+    char **board = (char **)malloc(size * sizeof(char)); // Dynamically allocating the ROWS of the board
     for (int i = 0; i < size; i++)
     {
-        board[i] = (char *)malloc(size * sizeof(char)); // Dynamically allocating the column of the board
+        board[i] = (char *)malloc(size * sizeof(char)); // Dynamically allocating the COLS of the board
 
         for (int j = 0; j < size; j++)
         {
@@ -19,7 +21,9 @@ char **create_board(int size)
 
 void print_board(char **board, int size)
 {
-    printf("-------------\n");
+    for (int i = 0; i < size * 4 + 1; i++)
+        cout << "-";
+    cout << endl;
     for (int i = 0; i < size; i++)
     {
         printf("|");
@@ -27,7 +31,10 @@ void print_board(char **board, int size)
         {
             printf(" %c |", board[i][j]);
         }
-        printf("\n-------------\n");
+        cout<<endl;
+        for (int i = 0; i < size * 4 + 1; i++)
+            cout << "-";
+        cout << endl;
     }
 }
 
@@ -42,11 +49,9 @@ int check_winner(char **board, int size)
             for (j = 1; j < size; j++)
             {
                 if (board[i][j] != board[i][0])
-                {
-                    break;
-                }
+                break;
             }
-            if (j == size)
+            if (j == size) //means all the cells in the row are of same player
             {
                 if (board[i][0] == 'X')
                     return 1;
@@ -64,9 +69,7 @@ int check_winner(char **board, int size)
             for (j = 1; j < size; j++)
             {
                 if (board[j][i] != board[0][i])
-                {
-                    break;
-                }
+                break;
             }
             if (j == size)
             {
@@ -85,9 +88,7 @@ int check_winner(char **board, int size)
         for (i = 1; i < size; i++)
         {
             if (board[i][i] != board[0][0])
-            {
-                break;
-            }
+            break;
         }
         if (i == size)
         {
@@ -102,12 +103,10 @@ int check_winner(char **board, int size)
     if (board[0][size - 1] != ' ')
     {
         int i;
-        for (i = 1; i < size; i++)
+        for (i = 1; i < size; i++) //traversing the columns
         {
             if (board[i][size - 1 - i] != board[0][size - 1])
-            {
-                break;
-            }
+            break;
         }
         if (i == size)
         {
@@ -137,13 +136,13 @@ int make_move(char **board, int size, int player)
 
         if (row < 0 || row >= size || col < 0 || col >= size)
         {
-            printf("Invalid move. Please try again.\n");
+            printf("\nInvalid move. Please try again.\n");
             continue;
         }
 
         if (board[row][col] != ' ')
         {
-            printf("Cell already occupied.\n Please try again.\n");
+            printf("\nCell already occupied.\nPlease try again.\n");
             continue;
         }
         break;
@@ -172,8 +171,10 @@ void free_board(char **board, int size)
 
 int main()
 {
-    int size = 3;
-    int player = 2; // Start with player 2's turn
+     int size;
+    cout<<"Pls enter the size of the board(nxn):";
+    cin>>size;
+    int player = 0;
     int moves = 0;
     int winner = 0;
 
