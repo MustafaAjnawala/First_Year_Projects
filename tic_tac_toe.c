@@ -3,7 +3,7 @@
 
 char **create_board(int size)
 {
-    char **board = (char *)malloc(size * sizeof(char)); // Dynamically allocating the rows of the board
+    char **board = (char **)malloc(size * sizeof(char)); // Dynamically allocating the rows of the board
     for (int i = 0; i < size; i++)
     {
         board[i] = (char *)malloc(size * sizeof(char)); // Dynamically allocating the column of the board
